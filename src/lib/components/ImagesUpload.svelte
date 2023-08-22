@@ -15,8 +15,8 @@
         }
     }
 
-    async function uploadImages(event) {
-        const files = event.target.files;
+    async function submitImage(event) {
+        const files = event.target.previousElementSibling.files;
         for (const file of files) {
             if (file) {
                 const reader = new FileReader();
@@ -32,25 +32,15 @@
         }
     }
 
-    function submitImage(event) {
-        const input = event.target.previousElementSibling;
-        input.click(); // Trigger input click to open file dialog
-    }
-
     // Initial load of images
     updateImages();
 </script>
 
 <h1>Gallery</h1>
-
-<input
-    type="file"
-    accept="image/*"
-    on:change={uploadImages}
-    id="imageInput"
-    multiple
-/>
-<!-- <button on:click={submitImage}>Upload Images</button> -->
+<div class="d-flex">
+    <input type="file" accept="image/*" id="imageInput" multiple />
+    <button class="relative" on:click={submitImage}>Upload Images</button>
+</div>
 
 <div class="image-grid">
     {#each images as image, index}
@@ -70,17 +60,17 @@
 
     .image-container {
         position: relative;
+        width: 15rem;
+        height: 15rem;
     }
 
     img {
         max-width: 100%;
-        height: auto;
+        width: 15rem;
+        height: 15rem;
     }
 
     button {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
         background-color: red;
         color: white;
         border: none;
