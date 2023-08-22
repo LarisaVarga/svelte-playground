@@ -36,7 +36,6 @@
     updateImages();
 </script>
 
-<h1>Gallery</h1>
 <div class="d-flex">
     <input type="file" accept="image/*" id="imageInput" multiple />
     <button class="relative" on:click={submitImage}>Upload Images</button>
