@@ -1,5 +1,7 @@
 <script>
     import { Fileupload, Label } from "flowbite-svelte";
+    import trash from "svelte-awesome/icons/trash";
+    import BoopTextIconBtn2 from "./BoopTextIconBtn2.svelte";
 
     let images = [];
 
@@ -61,11 +63,21 @@
     {#each images as image, index}
         <div class="image-container relative">
             <img
-                class="w-full object-cover min-h-gallery"
+                class="w-full object-cover min-h-gallery rounded-md"
                 src={image}
                 alt={`Image ${index}`}
             />
-            <button on:click={() => deleteImage(index)}>Delete</button>
+            <button
+                class="absolute bottom-1 right-1"
+                on:click={() => deleteImage(index)}
+            >
+                <BoopTextIconBtn2
+                    btnIcon={trash}
+                    boopParams={{ rotation: 20, timing: 200 }}
+                    btnColors={"bg-white"}
+                    textIconColor={"text-red-700"}
+                />
+            </button>
         </div>
     {/each}
 </div>
