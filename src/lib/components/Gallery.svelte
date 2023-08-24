@@ -1,4 +1,6 @@
 <script>
+    import { Fileupload, Label } from "flowbite-svelte";
+
     let images = [];
 
     function updateImages() {
@@ -15,8 +17,10 @@
         }
     }
 
-    async function submitImage(event) {
-        const files = event.target.previousElementSibling.files;
+    async function submitImage() {
+        // const files = event.target.previousElementSibling.files;
+        const filesInput = document.getElementById("multiple_files");
+        const files = filesInput.files;
         for (const file of files) {
             if (file) {
                 const reader = new FileReader();
@@ -30,49 +34,44 @@
                 reader.readAsDataURL(file);
             }
         }
+        // Clear the selected files
+        filesInput.value = "";
     }
 
     // Initial load of images
     updateImages();
 </script>
 
-<div class="d-flex">
-    <input type="file" accept="image/*" id="imageInput" multiple />
-    <button class="relative" on:click={submitImage}>Upload Images</button>
+<div class="mb-4">
+    <!-- <input type="file" accept="image/*" id="imageInput" multiple /> -->
+    <Label class="pb-2" for="multiple_files">Upload multiple files</Label>
+
+    <div class="flex">
+        <div class="w-1/2 mr-4">
+            <Fileupload id="multiple_files" multiple />
+        </div>
+        <button
+            class="relative btn-animation bg-gradient-to-r from-slate-900 via-slate-500 via-slate-400 to-slate-900 text-white uppercase py-2 px-6 rounded-lg font-medium italic flex items-center hover:drop-shadow-md mr-3"
+            on:click={submitImage}>Upload Images</button
+        >
+    </div>
 </div>
 
-<div class="image-grid">
+<div class="grid grid-cols-6 gap-4">
     {#each images as image, index}
-        <div class="image-container">
-            <img src={image} alt={`Image ${index}`} />
+        <div class="image-container relative">
+            <img
+                class="w-full object-cover min-h-gallery"
+                src={image}
+                alt={`Image ${index}`}
+            />
             <button on:click={() => deleteImage(index)}>Delete</button>
         </div>
     {/each}
 </div>
 
 <style>
-    .image-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-
-    .image-container {
-        position: relative;
-        width: 15rem;
-        height: 15rem;
-    }
-
     img {
         max-width: 100%;
-        width: 15rem;
-        height: 15rem;
-    }
-
-    button {
-        background-color: red;
-        color: white;
-        border: none;
-        cursor: pointer;
     }
 </style>

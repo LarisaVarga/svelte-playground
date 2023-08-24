@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body { @apply m-5 }
+body { @apply m-5 box-border }
 
 .card {
   @apply h-100;
@@ -19,3 +19,26 @@ background-size: 300% 100%;
   background-position: 100% 0;
   transition: all .4s ease-in-out;
 }
+
+    .btn-animation {
+        transition: all 0.4s ease-in-out;
+        background-size: 300% 100%;
+    }
+    .btn-animation:hover {
+        background-position: 100% 0;
+        transition: all 0.4s ease-in-out;
+    }
+    .btn4:hover .btn4-icon {
+        animation: rotate 0.5s ease-in;
+    }
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        99.99% {
+            transform: rotate(360deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
